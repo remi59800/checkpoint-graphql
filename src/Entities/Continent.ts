@@ -9,8 +9,8 @@ export class Continent extends BaseEntity {
   @Field()
   code!: string;
 
-  @OneToMany(() => Country, (country) => country.continent, { nullable: true })
-  @Field(() => [Country], { nullable: true })
+  @OneToMany(() => Country, (country) => country.continent)
+  @Field(() => [Country])
   countries!: Country[];
 }
 
