@@ -1,7 +1,6 @@
 import { Field, InputType, ObjectType } from 'type-graphql';
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
-import { Continent } from './Continent';
-import { ObjectCode } from './ObjectCode';
+import { Continent, ContinentCreateInput } from './Continent';
 
 @Entity()
 @ObjectType()
@@ -34,6 +33,6 @@ export class CountryCreateInput {
   @Field()
   emoji!: string;
 
-  @Field()
-  continent!: ObjectCode;
+  @Field(() => ContinentCreateInput)
+  continent!: ContinentCreateInput;
 }
