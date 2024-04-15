@@ -6,7 +6,7 @@ import { Country, CountryCreateInput } from '../Entities/Country';
 export class CountryResolver {
   @Query(() => [Country])
   async allCountries(): Promise<Country[]> {
-    const countries = await Country.find({ relations: { continent: true } });
+    const countries = await Country.find();
     return countries;
   }
 
@@ -14,9 +14,18 @@ export class CountryResolver {
   async getCountry(@Arg('code') code: string): Promise<Country | null> {
     const country = await Country.findOne({
       where: { code: code },
-      relations: { continent: true },
     });
     return country;
+  }
+
+  @Query(() => [Country], { nullable: true })
+  async getCountryByContinent(
+    @Arg('continent') continent: string
+  ): Promise<Country[] | null> {
+    const countries = await Country.find({
+      where: { continent: continent },
+    });
+    return countries;
   }
 
   @Mutation(() => Country)
